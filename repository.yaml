@@ -1,0 +1,4 @@
+# https://github.com/EvTheFuture/hassio-addon-snapcast/tree/master/snapcast
+name: addon snapcast
+URL: 'https://github.com/EvTheFuture/hassio-addon-snapcast/tree/master/snapcast'
+maintainer: EvTheFuture <EvTheFuture@example.com>
