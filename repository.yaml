@@ -1,4 +1,4 @@
-# https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
+# https://github.com/mecanisoft/hassio-addon-snapcast/tree/master/snapcast
 name: Home Assistant add-on repository snapcast
-url: 'https://github.com/home-assistant/addons-example'
+url: 'https://github.com/mecanisoft/hassio-addon-snapcast/tree/master/snapcast'
 maintainer: mecanisoft <mecanisoft@gmail.com>
