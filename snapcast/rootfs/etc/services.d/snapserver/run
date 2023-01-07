@@ -25,8 +25,8 @@ function rawurlencode() {
 function getval() {
     local param="${1}"
 
-    if bashio::config.exists "server.$param" ; then
-    	rawurlencode "$(bashio::config "server.$param")"
+    if bashio::config.exists "server_spotify.$param" ; then
+    	rawurlencode "$(bashio::config "server_spotify.$param")"
     else
     	rawurlencode "${PARAMS[$param]}"
     fi
@@ -35,14 +35,14 @@ function getval() {
 declare -a options
 
 # If Snapcast is disabled, use a fake sleep process
-if ! bashio::config.true 'server.enable'; then
+if ! bashio::config.true 'server_spotify.enable'; then
     bashio::log.info 'Snapcast server not enabled in config...'
     exec sleep 864000
 fi
 
 bashio::log.info 'Starting the Snapcast server...'
 
-if bashio::config.true 'server.enable_stream_librespot' ; then
+if bashio::config.true 'server_spotify.enable_stream_librespot' ; then
     declare -A PARAMS
     PARAMS["librespot_name"]="Spotify"
     PARAMS["librespot_device_name"]="Snapcast"
@@ -57,8 +57,8 @@ if bashio::config.true 'server.enable_stream_librespot' ; then
     params=""
     extra_params=""
 
-    bashio::config.has_value "server.librespot_params" && params="&params=$(rawurlencode $(bashio::config server.librespot_params))"
-    bashio::config.has_value "server.librespot_extra_params" && extra_params="&$(bashio::config server.librespot_extra_params)"
+    bashio::config.has_value "server_spotify.librespot_params" && params="&params=$(rawurlencode $(bashio::config server_spotify.librespot_params))"
+    bashio::config.has_value "server_spotify.librespot_extra_params" && extra_params="&$(bashio::config server_spotify.librespot_extra_params)"
 
     # TODO: add custom_streams
     STREAMS="source = librespot:///usr/bin/librespot?name=$(getval 'librespot_name')&devicename=$(getval 'librespot_device_name')&bitrate=$(getval 'librespot_bitrate')&volume=$(getval 'librespot_initial_volume')&normalize=$(getval 'librespot_normalize')&disable_audio_cache=$(getval 'librespot_disable_audio_cache')${extra_params}${params}"
@@ -67,9 +67,23 @@ fi
 echo "[stream]" > "$config_file"
 echo "$STREAMS" >> "$config_file"
 echo "" >> "$config_file"
+#default
+STREAM_FIFO="source = pipe:///tmp/snapfifo?name=Mopidy"
+STREAM_MPD="source = pipe:///tmp/mpd-notify?name=Notify&sampleformat=44100:16:2"
+STREAM_META="source = meta:///Notify/Spotify/Music?name=Mixed&sampleformat=44100:16:2"
+STREAM_DLNA= "source = pipe:///tmp/snapdlna?name=UPnP"
+
+echo "$STREAM_FIFO" >> "$config_file"
+echo "" >> "$config_file"
+
+echo "$STREAM_MPD" >> "$config_file"
+echo "" >> "$config_file"
+
+echo "$STREAM_DLNA" >> "$config_file"
+echo "" >> "$config_file"
 
 # activate web server?
-if bashio::config.true 'server.enable_web' ; then
+if bashio::config.true 'server_spotify.enable_web' ; then
     echo "[http]" >> "$config_file"
     echo "doc_root = /usr/share/snapserver/snapweb/" >> "$config_file"
 fi
