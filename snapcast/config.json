@@ -8,7 +8,7 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "services",
   "boot": "auto",
-  "url": "https://github.com/mecanisoft/hassio-addon-snapcast/tree/master/snapcast",
+  "url": "https://github.com/mecanisoft/hassio-addon/tree/master/snapcast",
   "webui": "http://[HOST]:[PORT:1780]/",
   "audio": true,
   "ingress": true,
