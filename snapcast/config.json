@@ -4,7 +4,7 @@
   "init": false,
   "stage": "experimental",
   "slug": "snapcast",
-  "description": "Snapcast server and/or client hosted on Home Assistant",
+  "description": "Snapcast server and/or client hosted on Home Assistant by Mecanisoft",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "services",
   "boot": "auto",
