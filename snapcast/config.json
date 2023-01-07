@@ -1,6 +1,6 @@
 {
   "name": "Snapcast",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "init": false,
   "stage": "experimental",
   "slug": "snapcast",
@@ -8,15 +8,22 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "services",
   "boot": "auto",
-  "url": "https://github.com/EvTheFuture/hassio-addon-snapcast",
+  "url": "https://github.com/mecanisoft/hassio-addon-snapcast/tree/master/snapcast",
   "webui": "http://[HOST]:[PORT:1780]/",
   "audio": true,
   "ingress": true,
   "ingress_port": 1780,
+  "ports":
+    "8000/tcp": 8000,
+    "1900/udp": 1900,
+    "1704/tcp": 1704,
+    "1705/tcp": 1705,
+    "1780/tcp": 1780,
+    "4953/tcp": 4953,	
   "panel_icon": "mdi:music",
   "panel_admin": false,
   "options": {
-    "server": {
+    "server_spotify": {
       "enable": true,
       "enable_web": true,
       "enable_stream_librespot": true,
@@ -60,5 +67,5 @@
     }
   },
   "host_network": true,
-  "image": "evthefuture/hassio-addon-snapcast-{arch}"
+  "image": "mecanisoft/hassio-addon-snapcast-{arch}"
 }
